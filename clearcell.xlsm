@@ -1,0 +1,27 @@
+Sub clear_cellb()
+'
+' clear_cell Macro
+'
+
+'
+    Range("B8:B99999").Select
+    Selection.ClearContents
+    Range("B2").Select
+    
+    Call clear_cellc
+    
+End Sub
+
+
+Sub clear_cellc()
+'
+' clear_cell Macro
+'
+
+'
+    Range("C8:C99999").Select
+    Selection.ClearContents
+    Range("B2").Select
+        
+End Sub
+
