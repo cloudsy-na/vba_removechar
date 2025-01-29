@@ -1,0 +1,59 @@
+    Sub AlphaNumericTest()
+        Call OnStart
+        
+        Dim bates_row As Long
+        bates_row = Cells(2, 2).Value 'get row limit input
+        bates_row = bates_row + 7 'offset into row 8
+        
+        Dim baris_tulis As Long
+        baris_tulis = 3
+        
+        Dim baris_ambil_data As Long
+        baris_ambil_data = 2
+        
+        Dim fileIterCheck As Long
+        fileIterCheck = 0
+        
+        Dim raw_textNih As String
+        Dim plain_textNya As String
+        
+        For i = 8 To bates_row
+            raw_textNih = Cells(i, baris_ambil_data).Value
+            'Cells(i, baris_tulis).Value = raw_textNih & "yes"
+            
+            For j = 1 To Len(raw_textNih)
+                'http://www.asciitable.com/ untuk list ascii codenyaa
+                Select Case Asc(Mid(raw_textNih, j, 1)) 'Asc to get Ascii codenya
+                    Case 48 To 57, 65 To 90, 97 To 122: 'include 32 if you want to include space
+                        plain_textNya = plain_textNya & Mid(raw_textNih, j, 1)
+                End Select
+            Next
+            
+            Cells(i, baris_tulis).Value = plain_textNya
+            plain_textNya = ""
+            fileIterCheck = fileIterCheck + 1
+        Next
+        Call OnEnd
+        
+        MsgBox ("Done! File checked: " & fileIterCheck)
+    End Sub
+    
+    Public Sub OnStart()
+    
+        Application.AskToUpdateLinks = False
+        Application.ScreenUpdating = False
+        Application.Calculation = xlAutomatic
+        Application.EnableEvents = False
+        Application.DisplayAlerts = False
+    
+    End Sub
+    
+    Public Sub OnEnd()
+    
+        Application.DisplayAlerts = True
+        Application.ScreenUpdating = True
+        Application.EnableEvents = True
+        Application.StatusBar = False
+        Application.AskToUpdateLinks = True
+    
+    End Sub
